@@ -1,0 +1,8 @@
+C:\Users\Ellis\Documents\CSCI6221\Facial Recognition\FacialAI\FacialAI\obj\Debug\FacialAI.csproj.AssemblyReference.cache
+C:\Users\Ellis\Documents\CSCI6221\Facial Recognition\FacialAI\FacialAI\obj\Debug\FacialAI.csproj.GenerateResource.cache
+C:\Users\Ellis\Documents\CSCI6221\Facial Recognition\FacialAI\FacialAI\bin\Debug\FacialAI.exe
+C:\Users\Ellis\Documents\CSCI6221\Facial Recognition\FacialAI\FacialAI\bin\Debug\FacialAI.pdb
+C:\Users\Ellis\Documents\CSCI6221\Facial Recognition\FacialAI\FacialAI\obj\Debug\FacialAI.Properties.Resources.resources
+C:\Users\Ellis\Documents\CSCI6221\Facial Recognition\FacialAI\FacialAI\obj\Debug\FacialAI.csproj.CoreCompileInputs.cache
+C:\Users\Ellis\Documents\CSCI6221\Facial Recognition\FacialAI\FacialAI\obj\Debug\FacialAI.exe
+C:\Users\Ellis\Documents\CSCI6221\Facial Recognition\FacialAI\FacialAI\obj\Debug\FacialAI.pdb
