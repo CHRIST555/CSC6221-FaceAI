@@ -1,0 +1,2 @@
+# CSC6221-FaceAI
+CSCI6221 Project
