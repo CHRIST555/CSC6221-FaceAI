@@ -89,5 +89,10 @@ namespace FacialAI
             new FaceAILogin().Show();
             this.Hide();
         }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
