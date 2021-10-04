@@ -4,3 +4,7 @@ FacialAI/obj/Debug
 *.pdb
 .vs/FacialAI/v16/.suo
 *.cache
+*.pdb
+*.exe
+*.cache
+.vs/FacialAI/v16/.suo
