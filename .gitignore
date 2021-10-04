@@ -1,0 +1,6 @@
+FacialAI/bin/Debug
+*.exe
+FacialAI/obj/Debug
+*.pdb
+.vs/FacialAI/v16/.suo
+*.cache
