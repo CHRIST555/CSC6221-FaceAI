@@ -55,7 +55,6 @@ namespace FacialAI
             this.label1.Size = new System.Drawing.Size(180, 32);
             this.label1.TabIndex = 0;
             this.label1.Text = "Get Started!";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // label2
             // 
@@ -186,7 +185,6 @@ namespace FacialAI
             this.MaximizeBox = false;
             this.Name = "Form1";
             this.Text = "Form1";
-            this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

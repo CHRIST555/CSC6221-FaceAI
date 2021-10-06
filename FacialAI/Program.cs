@@ -1,4 +1,6 @@
-﻿using System;
+﻿using FacialAI.Azure;
+using Microsoft.Azure.CognitiveServices.Vision.Face;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -18,6 +20,7 @@ namespace FacialAI
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
+           
         }
     }
 }

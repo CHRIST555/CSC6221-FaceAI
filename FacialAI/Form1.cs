@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.OleDb;
+using FacialAI.Azure;
 
 namespace FacialAI
 {
@@ -16,22 +17,15 @@ namespace FacialAI
         public Form1()
         {
             InitializeComponent();
+
+            FaceModels model = new FaceModels();
+
+            model.DetectFaceExtract();
         }
 
         OleDbConnection con = new OleDbConnection("Provider=Microsoft.Jet.OLEDB.4.0;Data Source=DatabaseFaceAI.mdb");
         OleDbCommand cmd = new OleDbCommand();
         OleDbDataAdapter da = new OleDbDataAdapter();
-
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
@@ -88,11 +82,6 @@ namespace FacialAI
         {
             new FaceAILogin().Show();
             this.Hide();
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }

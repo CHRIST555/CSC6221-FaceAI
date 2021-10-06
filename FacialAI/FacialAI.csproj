@@ -65,6 +65,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Azure\AzureConnection.cs" />
+    <Compile Include="Azure\FaceModels.cs" />
     <Compile Include="FaceAILogin.cs">
       <SubType>Form</SubType>
     </Compile>
