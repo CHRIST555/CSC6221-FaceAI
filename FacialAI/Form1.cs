@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
+using System.IO;
 using System.Linq;
-using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+
 using System.Windows.Forms;
 using System.Data.OleDb;
+using FacialAI.Azure;
+using AForge.Video;
+using AForge.Video.DirectShow;
+using System.Drawing;
 
 namespace FacialAI
 {
@@ -16,22 +19,20 @@ namespace FacialAI
         public Form1()
         {
             InitializeComponent();
+
+            FaceModels model = new FaceModels();
+            _ = model.FindSimilar();
+
+            imageControl.SizeMode = PictureBoxSizeMode.StretchImage;
+
         }
+
+        FilterInfoCollection filterInfoCollection;
+        VideoCaptureDevice captureDevice;
 
         OleDbConnection con = new OleDbConnection("Provider=Microsoft.Jet.OLEDB.4.0;Data Source=DatabaseFaceAI.mdb");
         OleDbCommand cmd = new OleDbCommand();
         OleDbDataAdapter da = new OleDbDataAdapter();
-
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
@@ -90,9 +91,49 @@ namespace FacialAI
             this.Hide();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void btnTakePicture_Click(object sender, EventArgs e)
         {
 
+            captureDevice.Stop();
+            captureDevice = new VideoCaptureDevice(filterInfoCollection[cboCameras.SelectedIndex].MonikerString);
+            captureDevice.NewFrame += VideoCaptureDevice_NewFrame;
+            captureDevice.Start();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            filterInfoCollection = new FilterInfoCollection(FilterCategory.VideoInputDevice);
+            foreach(FilterInfo filter in filterInfoCollection)
+            {
+                cboCameras.Items.Add(filter.Name);
+            }
+
+            cboCameras.SelectedIndex = 0;
+            captureDevice = new VideoCaptureDevice();
+        }
+
+        private void VideoCaptureDevice_NewFrame(object sender, NewFrameEventArgs eventArgs)
+        {
+            imageControl.Image = (Bitmap)eventArgs.Frame.Clone();
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (captureDevice.IsRunning==true)
+            {
+                captureDevice.Stop();
+            }
+        }
+
+        private void cboCameras_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (captureDevice != null) {
+                if (captureDevice.IsRunning == true)
+                    captureDevice.Stop();
+                captureDevice = new VideoCaptureDevice(filterInfoCollection[cboCameras.SelectedIndex].MonikerString);
+                captureDevice.NewFrame += VideoCaptureDevice_NewFrame;
+                captureDevice.Start();
+            }
         }
     }
 }
