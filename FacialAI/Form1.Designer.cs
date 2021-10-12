@@ -44,7 +44,10 @@ namespace FacialAI
             this.imageControl = new System.Windows.Forms.PictureBox();
             this.btnTakePicture = new System.Windows.Forms.Button();
             this.cboCameras = new System.Windows.Forms.ComboBox();
+            this.pct_snapshot = new System.Windows.Forms.PictureBox();
+            this.btnCompare = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.imageControl)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pct_snapshot)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -183,34 +186,54 @@ namespace FacialAI
             // 
             this.imageControl.Location = new System.Drawing.Point(30, 29);
             this.imageControl.Name = "imageControl";
-            this.imageControl.Size = new System.Drawing.Size(584, 344);
+            this.imageControl.Size = new System.Drawing.Size(367, 234);
             this.imageControl.TabIndex = 8;
             this.imageControl.TabStop = false;
             // 
             // btnTakePicture
             // 
-            this.btnTakePicture.Location = new System.Drawing.Point(65, 379);
+            this.btnTakePicture.Location = new System.Drawing.Point(484, 232);
             this.btnTakePicture.Name = "btnTakePicture";
             this.btnTakePicture.Size = new System.Drawing.Size(101, 32);
             this.btnTakePicture.TabIndex = 9;
-            this.btnTakePicture.Text = "button4";
+            this.btnTakePicture.Text = "Capture";
             this.btnTakePicture.UseVisualStyleBackColor = true;
             this.btnTakePicture.Click += new System.EventHandler(this.btnTakePicture_Click);
             // 
             // cboCameras
             // 
             this.cboCameras.FormattingEnabled = true;
-            this.cboCameras.Location = new System.Drawing.Point(30, 417);
+            this.cboCameras.Location = new System.Drawing.Point(111, 269);
             this.cboCameras.Name = "cboCameras";
             this.cboCameras.Size = new System.Drawing.Size(173, 21);
             this.cboCameras.TabIndex = 10;
             this.cboCameras.SelectedIndexChanged += new System.EventHandler(this.cboCameras_SelectedIndexChanged);
+            // 
+            // pct_snapshot
+            // 
+            this.pct_snapshot.Location = new System.Drawing.Point(403, 82);
+            this.pct_snapshot.Name = "pct_snapshot";
+            this.pct_snapshot.Size = new System.Drawing.Size(248, 144);
+            this.pct_snapshot.TabIndex = 11;
+            this.pct_snapshot.TabStop = false;
+            // 
+            // btnCompare
+            // 
+            this.btnCompare.Location = new System.Drawing.Point(484, 270);
+            this.btnCompare.Name = "btnCompare";
+            this.btnCompare.Size = new System.Drawing.Size(101, 34);
+            this.btnCompare.TabIndex = 12;
+            this.btnCompare.Text = "Compare";
+            this.btnCompare.UseVisualStyleBackColor = true;
+            this.btnCompare.Click += new System.EventHandler(this.btnCompare_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(860, 450);
+            this.Controls.Add(this.btnCompare);
+            this.Controls.Add(this.pct_snapshot);
             this.Controls.Add(this.cboCameras);
             this.Controls.Add(this.btnTakePicture);
             this.Controls.Add(this.imageControl);
@@ -234,6 +257,7 @@ namespace FacialAI
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.imageControl)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pct_snapshot)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -256,5 +280,7 @@ namespace FacialAI
         private System.Windows.Forms.PictureBox imageControl;
         private System.Windows.Forms.Button btnTakePicture;
         private System.Windows.Forms.ComboBox cboCameras;
+        private System.Windows.Forms.PictureBox pct_snapshot;
+        private System.Windows.Forms.Button btnCompare;
     }
 }

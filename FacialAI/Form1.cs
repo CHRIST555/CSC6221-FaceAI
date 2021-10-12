@@ -16,16 +16,6 @@ namespace FacialAI
 {
     public partial class Form1 : Form
     {
-        public Form1()
-        {
-            InitializeComponent();
-
-            FaceModels model = new FaceModels();
-            _ = model.FindSimilar();
-
-            imageControl.SizeMode = PictureBoxSizeMode.StretchImage;
-
-        }
 
         FilterInfoCollection filterInfoCollection;
         VideoCaptureDevice captureDevice;
@@ -33,6 +23,20 @@ namespace FacialAI
         OleDbConnection con = new OleDbConnection("Provider=Microsoft.Jet.OLEDB.4.0;Data Source=DatabaseFaceAI.mdb");
         OleDbCommand cmd = new OleDbCommand();
         OleDbDataAdapter da = new OleDbDataAdapter();
+
+        Bitmap capturedImage;
+        FaceModels model;
+        public Form1()
+        {
+            InitializeComponent();
+
+            model = new FaceModels();
+
+            imageControl.SizeMode = PictureBoxSizeMode.StretchImage;
+            pct_snapshot.SizeMode = PictureBoxSizeMode.StretchImage;
+
+        }
+
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
@@ -93,11 +97,8 @@ namespace FacialAI
 
         private void btnTakePicture_Click(object sender, EventArgs e)
         {
-
-            captureDevice.Stop();
-            captureDevice = new VideoCaptureDevice(filterInfoCollection[cboCameras.SelectedIndex].MonikerString);
-            captureDevice.NewFrame += VideoCaptureDevice_NewFrame;
-            captureDevice.Start();
+            capturedImage = (Bitmap)imageControl.Image.Clone();
+            pct_snapshot.Image = capturedImage;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -134,6 +135,11 @@ namespace FacialAI
                 captureDevice.NewFrame += VideoCaptureDevice_NewFrame;
                 captureDevice.Start();
             }
+        }
+
+        private void btnCompare_Click(object sender, EventArgs e)
+        {
+            model.FindSimilar(capturedImage);
         }
     }
 }
