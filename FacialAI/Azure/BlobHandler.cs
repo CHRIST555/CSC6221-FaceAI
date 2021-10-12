@@ -1,21 +1,17 @@
-﻿using Azure.Storage;
-using Azure.Storage.Blobs;
-using Microsoft.AspNetCore.Http;
-using Microsoft.WindowsAzure.Storage;
+﻿using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FacialAI.Azure
 {
     class BlobHandler
     {
-        static string CONNECTION = "BlobEndpoint=https://6221faces.blob.core.windows.net/;QueueEndpoint=https://6221faces.queue.core.windows.net/;FileEndpoint=https://6221faces.file.core.windows.net/;TableEndpoint=https://6221faces.table.core.windows.net/;SharedAccessSignature=sv=2020-08-04&ss=bfqt&srt=sco&sp=rwdlacuptfx&se=2021-11-06T04:53:02Z&st=2021-10-11T20:53:02Z&spr=https&sig=HxT%2FmuUf9UuZVqqEHowyf34Q72fhZ5kS2XEN8%2Bx4%2B1Y%3D";
-        static string CONTAINER = "faces";
+        static readonly string CONNECTION = ConfigurationManager.AppSettings.Get("BLOB_ENDPOINT");
+        static readonly string CONTAINER = ConfigurationManager.AppSettings.Get("CONTAINER");
         public static bool UploadToStorage(String _file, string fileName)
         {
             CloudStorageAccount storageacc = CloudStorageAccount.Parse(CONNECTION);
@@ -32,7 +28,7 @@ namespace FacialAI.Azure
                 {
                     blockBlob.UploadFromStream(filestream);
                 }
-                catch (Exception _)
+                catch (Exception)
                 {
                     return false;
                 }

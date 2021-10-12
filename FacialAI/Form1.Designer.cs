@@ -1,7 +1,7 @@
 ﻿
 namespace FacialAI
 {
-    partial class Form1
+    partial class frm_home
     {
         /// <summary>
         /// Required designer variable.
@@ -46,6 +46,7 @@ namespace FacialAI
             this.cboCameras = new System.Windows.Forms.ComboBox();
             this.pct_snapshot = new System.Windows.Forms.PictureBox();
             this.btnCompare = new System.Windows.Forms.Button();
+            this.chkSaveImage = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.imageControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pct_snapshot)).BeginInit();
             this.SuspendLayout();
@@ -227,11 +228,22 @@ namespace FacialAI
             this.btnCompare.UseVisualStyleBackColor = true;
             this.btnCompare.Click += new System.EventHandler(this.btnCompare_ClickAsync);
             // 
-            // Form1
+            // chkSaveImage
+            // 
+            this.chkSaveImage.AutoSize = true;
+            this.chkSaveImage.Location = new System.Drawing.Point(403, 59);
+            this.chkSaveImage.Name = "chkSaveImage";
+            this.chkSaveImage.Size = new System.Drawing.Size(141, 17);
+            this.chkSaveImage.TabIndex = 13;
+            this.chkSaveImage.Text = "Save image to database";
+            this.chkSaveImage.UseVisualStyleBackColor = true;
+            // 
+            // frm_home
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(860, 450);
+            this.Controls.Add(this.chkSaveImage);
             this.Controls.Add(this.btnCompare);
             this.Controls.Add(this.pct_snapshot);
             this.Controls.Add(this.cboCameras);
@@ -252,8 +264,8 @@ namespace FacialAI
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Name = "frm_home";
+            this.Text = "Home";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.imageControl)).EndInit();
@@ -282,5 +294,6 @@ namespace FacialAI
         private System.Windows.Forms.ComboBox cboCameras;
         private System.Windows.Forms.PictureBox pct_snapshot;
         private System.Windows.Forms.Button btnCompare;
+        private System.Windows.Forms.CheckBox chkSaveImage;
     }
 }
