@@ -14,11 +14,9 @@ namespace FacialAI.Azure
 {
     class BlobHandler
     {
-        static string NAME = "6221faces";
-        static string KEY = "PdpA+IDe5XkRQ/1HYx8CtaPtbMUa+JkydAbrJbv8eKosVuouW6YFARct+QzyhpobHaCjhFzA8RtCA+fyi8tJfw==";
         static string CONNECTION = "BlobEndpoint=https://6221faces.blob.core.windows.net/;QueueEndpoint=https://6221faces.queue.core.windows.net/;FileEndpoint=https://6221faces.file.core.windows.net/;TableEndpoint=https://6221faces.table.core.windows.net/;SharedAccessSignature=sv=2020-08-04&ss=bfqt&srt=sco&sp=rwdlacuptfx&se=2021-11-06T04:53:02Z&st=2021-10-11T20:53:02Z&spr=https&sig=HxT%2FmuUf9UuZVqqEHowyf34Q72fhZ5kS2XEN8%2Bx4%2B1Y%3D";
         static string CONTAINER = "faces";
-        public static async Task UploadToStorage(String _file, string fileName)
+        public static bool UploadToStorage(String _file, string fileName)
         {
             CloudStorageAccount storageacc = CloudStorageAccount.Parse(CONNECTION);
 
@@ -30,11 +28,19 @@ namespace FacialAI.Azure
             blockBlob.Properties.ContentType = "image/jpg";
             using (var filestream = File.OpenRead(_file))
             {
-                blockBlob.UploadFromStream(filestream);
+                try
+                {
+                    blockBlob.UploadFromStream(filestream);
+                }
+                catch (Exception _)
+                {
+                    return false;
+                }
             }
+            return true;
         }
 
-        public static List<string> get_files()
+        public static List<string> Get_files()
         {
             CloudStorageAccount storage = CloudStorageAccount.Parse(CONNECTION);
             CloudBlobClient blobClient = storage.CreateCloudBlobClient();
@@ -53,6 +59,16 @@ namespace FacialAI.Azure
             return files;
 
 
+        }
+
+        public static void DeleteItem(string fileName)
+        {
+            CloudStorageAccount storage = CloudStorageAccount.Parse(CONNECTION);
+            CloudBlobClient blobClient = storage.CreateCloudBlobClient();
+            CloudBlobContainer container = blobClient.GetContainerReference(CONTAINER);
+
+            var blob = container.GetBlockBlobReference(fileName);
+            blob.DeleteIfExists();
         }
     }
 }

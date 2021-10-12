@@ -225,7 +225,7 @@ namespace FacialAI
             this.btnCompare.TabIndex = 12;
             this.btnCompare.Text = "Compare";
             this.btnCompare.UseVisualStyleBackColor = true;
-            this.btnCompare.Click += new System.EventHandler(this.btnCompare_Click);
+            this.btnCompare.Click += new System.EventHandler(this.btnCompare_ClickAsync);
             // 
             // Form1
             // 

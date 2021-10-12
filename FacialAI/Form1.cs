@@ -137,9 +137,10 @@ namespace FacialAI
             }
         }
 
-        private void btnCompare_Click(object sender, EventArgs e)
+        private async void btnCompare_ClickAsync(object sender, EventArgs e)
         {
-            model.FindSimilar(capturedImage);
+            bool val = await model.FindSimilar(capturedImage);
+            Console.WriteLine(val);
         }
     }
 }
