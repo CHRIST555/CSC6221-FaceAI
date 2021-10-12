@@ -1,13 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.Data.OleDb;
+using System.Windows.Forms;
 
 namespace FacialAI
 {
@@ -18,9 +11,9 @@ namespace FacialAI
             InitializeComponent();
         }
 
-        OleDbConnection con = new OleDbConnection("Provider=Microsoft.Jet.OLEDB.4.0;Data Source=DatabaseFaceAI.mdb");
+        readonly OleDbConnection con = new OleDbConnection("Provider=Microsoft.Jet.OLEDB.4.0;Data Source=DatabaseFaceAI.mdb");
         OleDbCommand cmd = new OleDbCommand();
-        OleDbDataAdapter da = new OleDbDataAdapter();
+        readonly OleDbDataAdapter da = new OleDbDataAdapter();
 
         private void label5_Click(object sender, EventArgs e)
         {
@@ -34,7 +27,7 @@ namespace FacialAI
             cmd = new OleDbCommand(login, con);
             OleDbDataReader dr = cmd.ExecuteReader();
 
-            if(dr.Read() == true)
+            if (dr.Read() == true)
             {
                 MessageBox.Show("Username and Password", "Confirm!", MessageBoxButtons.OK);
             }
@@ -69,8 +62,8 @@ namespace FacialAI
 
         private void button3_Click(object sender, EventArgs e)
         {
-            new Form1().Show();
-            this.Hide();
+            new frm_home().Show();
+            Hide();
         }
     }
 }

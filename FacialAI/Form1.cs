@@ -1,38 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-
-using System.Windows.Forms;
-using System.Data.OleDb;
-using FacialAI.Azure;
-using AForge.Video;
+﻿using AForge.Video;
 using AForge.Video.DirectShow;
+using FacialAI.Azure;
+using System;
+using System.Data.OleDb;
 using System.Drawing;
+using System.Windows.Forms;
 
 namespace FacialAI
 {
-    public partial class Form1 : Form
+    public partial class frm_home : Form
     {
-        public Form1()
-        {
-            InitializeComponent();
-
-            FaceModels model = new FaceModels();
-            _ = model.FindSimilar();
-
-            imageControl.SizeMode = PictureBoxSizeMode.StretchImage;
-
-        }
 
         FilterInfoCollection filterInfoCollection;
         VideoCaptureDevice captureDevice;
-
-        OleDbConnection con = new OleDbConnection("Provider=Microsoft.Jet.OLEDB.4.0;Data Source=DatabaseFaceAI.mdb");
+        readonly OleDbConnection con = new OleDbConnection("Provider=Microsoft.Jet.OLEDB.4.0;Data Source=DatabaseFaceAI.mdb");
         OleDbCommand cmd = new OleDbCommand();
-        OleDbDataAdapter da = new OleDbDataAdapter();
+        readonly OleDbDataAdapter da = new OleDbDataAdapter();
+
+        Bitmap capturedImage;
+        readonly FaceModels model;
+        public frm_home()
+        {
+            InitializeComponent();
+
+            model = new FaceModels();
+
+            imageControl.SizeMode = PictureBoxSizeMode.StretchImage;
+            pct_snapshot.SizeMode = PictureBoxSizeMode.StretchImage;
+
+        }
+
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
@@ -88,28 +85,34 @@ namespace FacialAI
         private void button3_Click(object sender, EventArgs e)
         {
             new FaceAILogin().Show();
-            this.Hide();
+            Hide();
         }
 
         private void btnTakePicture_Click(object sender, EventArgs e)
         {
-
-            captureDevice.Stop();
-            captureDevice = new VideoCaptureDevice(filterInfoCollection[cboCameras.SelectedIndex].MonikerString);
-            captureDevice.NewFrame += VideoCaptureDevice_NewFrame;
-            captureDevice.Start();
+            capturedImage = (Bitmap)imageControl.Image.Clone();
+            pct_snapshot.Image = capturedImage;
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
             filterInfoCollection = new FilterInfoCollection(FilterCategory.VideoInputDevice);
-            foreach(FilterInfo filter in filterInfoCollection)
+            foreach (FilterInfo filter in filterInfoCollection)
             {
                 cboCameras.Items.Add(filter.Name);
             }
 
             cboCameras.SelectedIndex = 0;
             captureDevice = new VideoCaptureDevice();
+
+            if (captureDevice != null)
+            {
+                if (captureDevice.IsRunning == true)
+                    captureDevice.Stop();
+                captureDevice = new VideoCaptureDevice(filterInfoCollection[cboCameras.SelectedIndex].MonikerString);
+                captureDevice.NewFrame += VideoCaptureDevice_NewFrame;
+                captureDevice.Start();
+            }
         }
 
         private void VideoCaptureDevice_NewFrame(object sender, NewFrameEventArgs eventArgs)
@@ -119,7 +122,7 @@ namespace FacialAI
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (captureDevice.IsRunning==true)
+            if (captureDevice.IsRunning == true)
             {
                 captureDevice.Stop();
             }
@@ -127,13 +130,20 @@ namespace FacialAI
 
         private void cboCameras_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (captureDevice != null) {
+            if (captureDevice != null)
+            {
                 if (captureDevice.IsRunning == true)
                     captureDevice.Stop();
                 captureDevice = new VideoCaptureDevice(filterInfoCollection[cboCameras.SelectedIndex].MonikerString);
                 captureDevice.NewFrame += VideoCaptureDevice_NewFrame;
                 captureDevice.Start();
             }
+        }
+
+        private async void btnCompare_ClickAsync(object sender, EventArgs e)
+        {
+            bool to_save = chkSaveImage.Checked;
+            bool val = await model.FindSimilar(capturedImage, to_save);
         }
     }
 }
